@@ -2,6 +2,7 @@
 
 use App\DataTables\UsersDataTable;
 use App\Helpers\ImageFilter;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,7 @@ Route::get('/dashboard', function (UsersDataTable $dataTable) {
 Route::get('image', function () {
     $img = Image::make('download.png');
     $img->filter(new ImageFilter(100));
+
     // // $img->crop(400, 400);
     // ->fit(400,400)
     // // $img->blur(15);
@@ -50,4 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
+
+Route::get('shop', [CartController::class, 'shop'])->name('shop');
+Route::get('cart', [CartController::class, 'cart'])->name('cart');
+Route::get('add-to-cart/{product_id}', [CartController::class, 'addToCart'])->name('add-to-cart');
