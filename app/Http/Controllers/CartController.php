@@ -26,4 +26,30 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', 'Product added to cart!');
     }
+
+    public function qtyIncrement($id)
+    {
+        $product = Cart::get($id);
+        $updateQty = $product->qty + 1;
+        Cart::update($id, $updateQty);
+        return redirect()->back()->with('success', 'Product increment successfully!');;
+    }
+
+    public function qtyDecrement($id)
+    {
+        $product = Cart::get($id);
+        $updateQty = $product->qty - 1;
+        if($updateQty > 0){
+            Cart::update($id, $updateQty);
+        }
+
+        return redirect()->back()->with('success', 'Product decrement successfully!');
+    }
+
+    public function removeProduct($id)
+    {
+        Cart::remove($id);
+
+        return redirect()->back();
+    }
 }

@@ -57,3 +57,8 @@ require __DIR__.'/auth.php';
 Route::get('shop', [CartController::class, 'shop'])->name('shop');
 Route::get('cart', [CartController::class, 'cart'])->name('cart');
 Route::get('add-to-cart/{product_id}', [CartController::class, 'addToCart'])->name('add-to-cart');
+
+Route::get('qty-increment/{rowId}', [CartController::class, 'qtyIncrement'])->name('qty-increment');
+Route::get('qty-decrement/{rowId}', [CartController::class, 'qtyDecrement'])->name('qty-decrement');
+
+Route::get('remove-product/{rowId}', [CartController::class, 'removeProduct'])->name('remove-product');

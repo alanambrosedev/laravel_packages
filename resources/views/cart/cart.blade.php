@@ -14,73 +14,72 @@
                             @if ($message = Session::get('success'))
                                 <div class="alert alert-success alert-block">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
-                                    <strong>{{ $message }}</strong>
+                                        <strong>{{ $message }}</strong>
                                 </div>
                             @endif
 
                             <div class="card mb-4">
                                 <div class="card-header py-3">
-                                    <h5 class="mb-0">Cart - 2 items</h5>
+                                    <h5 class="mb-0">Cart - items</h5>
                                 </div>
                                 <div class="card-body">
                                     @foreach (Cart::content() as $product)
-                                        <!-- Single item -->
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                                <!-- Image -->
-                                                <div class="bg-image hover-overlay hover-zoom ripple rounded"
-                                                    data-mdb-ripple-color="light">
-                                                    <img src="{{ asset($product->options->image) }}" class="w-100" />
-                                                    <a href="#!">
-                                                        <div class="mask"
-                                                            style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                                    </a>
-                                                </div>
-                                                <!-- Image -->
+                                    <!-- Single item -->
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                            <!-- Image -->
+                                            <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                                data-mdb-ripple-color="light">
+                                                <img src="{{asset($product->options->image)}}"
+                                                    class="w-100" />
+                                                <a href="#!">
+                                                    <div class="mask"
+                                                        style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                                </a>
                                             </div>
-
-                                            <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                                <!-- Data -->
-                                                <p><strong>{{ $product->name }}</strong></p>
-                                                <p>Color: red</p>
-                                                <p>Size: M</p>
-                                                {{--
-                                            <a href="{{route('remove-product', $product->rowId)}}" class="btn btn-danger btn-sm mb-2 mt-3">
-                                                remove
-                                            </a> --}}
-                                                <!-- Data -->
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                                                <!-- Quantity -->
-                                                <div class="d-flex mb-4" style="max-width: 300px">
-                                                    {{-- <a href="{{route('qty-decrement', $product->rowId)}}" class="btn btn-primary me-2">
-                                                    &#8722;
-                                                </a> --}}
-
-                                                    <div class="form-outline">
-                                                        <input id="form1" min="0" name="quantity"
-                                                            value="{{ $product->qty }}" type="number"
-                                                            class="form-control" />
-                                                    </div>
-
-                                                    {{-- <a href="{{ route('qty-increment', $product->rowId) }}"
-                                                        class="btn btn-primary  ms-2">
-                                                        &#43;
-                                                    </a> --}}
-                                                </div>
-                                                <!-- Quantity -->
-
-                                                <!-- Price -->
-                                                <p class="text-start text-md-center">
-                                                    <strong>${{ $product->price }}</strong>
-                                                </p>
-                                                <!-- Price -->
-                                            </div>
-
+                                            <!-- Image -->
                                         </div>
-                                        <!-- Single item -->
-                                        <hr class="my-4" />
+
+                                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                            <!-- Data -->
+                                            <p><strong>{{$product->name}}</strong></p>
+                                            <p>Color: red</p>
+                                            <p>Size: M</p>
+
+                                            <a href="{{route('remove-product', $product->rowId)}}" class="btn btn-danger btn-sm mb-2 mt-3">
+                                                Remove
+                                            </a>
+                                            <!-- Data -->
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                            <!-- Quantity -->
+                                            <div class="d-flex mb-4" style="max-width: 300px">
+                                                <a href="{{route('qty-decrement', $product->rowId)}}" class="btn btn-primary me-2">
+                                                    &#8722;
+                                                </a>
+
+                                                <div class="form-outline">
+                                                    <input id="form1" min="0" name="quantity" value="{{$product->qty}}"
+                                                        type="number" class="form-control" />
+                                                </div>
+
+                                                <a href="{{route('qty-increment', $product->rowId)}}" class="btn btn-primary  ms-2">
+                                                    &#43;
+                                                </a>
+                                            </div>
+                                            <!-- Quantity -->
+
+                                            <!-- Price -->
+                                            <p class="text-start text-md-center">
+                                                <strong>${{$product->price}}</strong>
+                                            </p>
+                                            <!-- Price -->
+                                        </div>
+
+                                    </div>
+                                    <!-- Single item -->
+                                    <hr class="my-4" />
                                     @endforeach
 
 
