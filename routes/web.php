@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
+use Laravel\Socialite\Facades\Socialite;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -93,4 +94,21 @@ Route::get('posts', function () {
     $posts = Post::all();
 
     return view('post.post', compact('posts'));
+});
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('github.login');
+
+Route::get('/auth/callback', function () {
+    $user = Socialite::driver('github')->user();
+    $user = User::firstOrCreate([
+        'email' => $user->email,
+    ], [
+        'name' => $user->name,
+        'password' => bcrypt(Str::random(24)),
+    ]);
+    Auth::login($user, true);
+
+    return redirect('/dashboard');
 });
