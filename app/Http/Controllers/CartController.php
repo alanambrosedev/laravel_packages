@@ -32,14 +32,15 @@ class CartController extends Controller
         $product = Cart::get($id);
         $updateQty = $product->qty + 1;
         Cart::update($id, $updateQty);
-        return redirect()->back()->with('success', 'Product increment successfully!');;
+
+        return redirect()->back()->with('success', 'Product increment successfully!');
     }
 
     public function qtyDecrement($id)
     {
         $product = Cart::get($id);
         $updateQty = $product->qty - 1;
-        if($updateQty > 0){
+        if ($updateQty > 0) {
             Cart::update($id, $updateQty);
         }
 

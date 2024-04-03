@@ -4,9 +4,12 @@ use App\DataTables\UsersDataTable;
 use App\Helpers\ImageFilter;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\Facades\Image;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +65,32 @@ Route::get('qty-increment/{rowId}', [CartController::class, 'qtyIncrement'])->na
 Route::get('qty-decrement/{rowId}', [CartController::class, 'qtyDecrement'])->name('qty-decrement');
 
 Route::get('remove-product/{rowId}', [CartController::class, 'removeProduct'])->name('remove-product');
+
+Route::get('create-role', function () {
+    // $role = Role::create(['name' => 'publisher']);
+    // return $role;
+    // $permission = Permission::create(['name' => 'edit articles']);
+    // return $permission;
+    $user = auth()->user();
+    // $user->assignRole('writer');
+    // $user->givePermissionTo('edit articles');
+    // return $user->getPermissionNames();
+    // return $user->permissions;
+    // return $user->getRoleNames();
+    // return $user->can('delete articles');
+
+    // $userPermission = $user->can('delete articles');
+
+    if ($user->can('edit articles')) {
+        return 'user have permission';
+    } else {
+        return 'user dont have permission';
+    }
+});
+
+Route::get('posts', function () {
+    // auth()->user()->assignRole('writer');
+    $posts = Post::all();
+
+    return view('post.post', compact('posts'));
+});
